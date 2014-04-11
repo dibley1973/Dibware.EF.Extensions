@@ -1,31 +1,29 @@
 ﻿using Dibware.EF.Extensions.Contracts;
-using System;
+using Dibware.EF.Extensions.Helpers;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
-using Dibware.System.Extensions.System.Collections.Generic;
 
 namespace Dibware.EF.Extensions
 {
+    /// <summary>
+    /// Encapsulates extensions for System.Data.Entity.Database
+    /// </summary>
     public static class DatabaseExtensions
     {
+        /// <summary>
+        /// Executes the specified stored procedure.
+        /// </summary>
+        /// <typeparam name="TResult">The type of the result.</typeparam>
+        /// <param name="database">The database.</param>
+        /// <param name="procedure">The procedure.</param>
+        /// <returns></returns>
         public static IEnumerable<TResult> ExecuteStoredProcedure<TResult>(
-            this Database database, 
+            this Database database,
             IStoredProcedure<TResult> procedure)
         {
-            var sqlCommand = CreateSPCommand<TResult>(procedure.FullName, procedure.Parameters);
-            return database.SqlQuery<TResult>(sqlCommand, procedure.Parameters.Cast<object>().ToArray());
-        }
-
-        private static string CreateSPCommand<TResult>(String storedProcedureName, IEnumerable<SqlParameter> parameters)
-        {
-            var queryString = storedProcedureName;
-            parameters.ForEach(x => queryString = String.Format("{0} {1},", queryString, x.ParameterName));
-            return queryString.TrimEnd(',');
+            var sqlCommandString = CommandHelper.CreateStoredProcedureCommandString<TResult>(procedure.FullName, procedure.Parameters);
+            return database.SqlQuery<TResult>(sqlCommandString, procedure.Parameters.Cast<object>().ToArray());
         }
     }
 }

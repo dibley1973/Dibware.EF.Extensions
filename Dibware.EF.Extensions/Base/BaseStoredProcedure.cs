@@ -1,10 +1,8 @@
 ﻿using Dibware.EF.Extensions.Contracts;
+using Dibware.EF.Extensions.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dibware.EF.Extensions.Base
 {
@@ -39,39 +37,47 @@ namespace Dibware.EF.Extensions.Base
         /// <summary>
         /// Gets the parameters
         /// </summary>
-        public IEnumerable<SqlParameter> Parameters { get; private set;  }
+        public IEnumerable<SqlParameter> Parameters { get; private set; }
 
         #endregion
 
         #region Constructor
 
-        
-        public BaseStoredProcedure(String name, IDictionary<String, Object> parameters)
-            : this(DefaultSchema, name, parameters) {}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseStoredProcedure{TResult}"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        public BaseStoredProcedure(String name)
+            : this(DefaultSchema, name) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseStoredProcedure{TResult}"/> class.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <param name="name">The name.</param>
+        public BaseStoredProcedure(String schema, String name)
+            : this(schema, name, new Dictionary<String, Object>()) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseStoredProcedure{TResult}"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="parameters">The parameters.</param>
+        public BaseStoredProcedure(String name, IDictionary<String, Object> parameters)
+            : this(DefaultSchema, name, parameters) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseStoredProcedure{TResult}"/> class.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="parameters">The parameters.</param>
         public BaseStoredProcedure(String schema, String name, IDictionary<String, Object> parameters)
         {
-            this.Name = name;
-            this.Schema = schema;
-            this.BuildParameters(parameters);
+            Name = name;
+            Schema = schema;
+            Parameters = ParameterHelper.BuildParametersFromDictionary(parameters);
 
-        }
-
-        #endregion
-
-        #region Methods
-
-        private void BuildParameters(IDictionary<String, Object> paramters)
-        {
-            foreach (var parameter in paramters)
-            {
-                var sqlParameter = ConvertParameterToSqlParameter(parameter);
-            }
-        }
-
-        private object ConvertParameterToSqlParameter(KeyValuePair<String, Object> parameter)
-        {
-            return new SqlParameter(String.Format("@{0}", parameter.Key), parameter.Value);
         }
 
         #endregion

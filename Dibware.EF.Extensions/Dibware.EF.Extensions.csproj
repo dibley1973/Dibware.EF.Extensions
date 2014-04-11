@@ -30,9 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dibware.System.Extensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Dibware.Extensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libaries\Dibware.System.Extensions.dll</HintPath>
+      <HintPath>Libaries\Dibware.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -54,10 +54,12 @@
     <Compile Include="Base\BaseStoredProcedure.cs" />
     <Compile Include="Contracts\IStoredProcedure.cs" />
     <Compile Include="DatabaseExtensions.cs" />
+    <Compile Include="Helpers\CommandHelper.cs" />
+    <Compile Include="Helpers\ParameterHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Libaries\Dibware.System.Extensions.dll" />
+    <Content Include="Libaries\Dibware.Extensions.dll" />
     <Content Include="Libaries\EntityFramework.dll" />
     <Content Include="Libaries\EntityFramework.SqlServer.dll" />
   </ItemGroup>
