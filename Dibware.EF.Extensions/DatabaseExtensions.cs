@@ -20,10 +20,15 @@ namespace Dibware.EF.Extensions
         /// <returns></returns>
         public static IEnumerable<TResult> ExecuteStoredProcedure<TResult>(
             this Database database,
-            IStoredProcedure<TResult> procedure)
+            IStoredProcedure<TResult> procedure) where TResult : class
         {
             var sqlCommandString = CommandHelper.CreateStoredProcedureCommandString<TResult>(procedure.FullName, procedure.Parameters);
-            return database.SqlQuery<TResult>(sqlCommandString, procedure.Parameters.Cast<object>().ToArray());
+            var result = database
+                .SqlQuery<TResult>(
+                    sqlCommandString,
+                    procedure.Parameters.ToArray())
+                .ToList();
+            return result;
         }
     }
 }
