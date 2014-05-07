@@ -17,7 +17,7 @@ namespace Dibware.EF.Extensions.Tests
             const String param1Value = "sponge";
             const String param2Name = "params";
             const String param2Value = "bob";
-            var expectedResult = String.Format("{0} @{1}, @{2}", storedProcedureName, param1Name, param2Name);
+            var expectedResult = String.Format("EXEC {0} @{1}, @{2}", storedProcedureName, param1Name, param2Name);
             var parameterDictionary = new Dictionary<String, Object>()
             {
                 { param1Name, param1Value },

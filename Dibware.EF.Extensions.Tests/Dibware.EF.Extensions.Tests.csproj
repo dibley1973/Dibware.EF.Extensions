@@ -63,7 +63,14 @@
     <Compile Include="ComandHelperTests.cs" />
     <Compile Include="DatabaseExtensionsTests.cs" />
     <Compile Include="Mocks\MockProcedure.cs" />
+    <Compile Include="Mocks\ScalarTestStoredProcedure.cs" />
+    <Compile Include="Mocks\ScalarTestStoredProcedureWithParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dibware.EF.Extensions\Dibware.EF.Extensions.csproj">
@@ -74,6 +81,13 @@
   <ItemGroup>
     <Content Include="Libraries\EntityFramework.dll" />
     <Content Include="Libraries\EntityFramework.SqlServer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
