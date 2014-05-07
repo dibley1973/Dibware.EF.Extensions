@@ -80,12 +80,13 @@ namespace Dibware.EF.Extensions
             return result;
         }
 
+
         /// <summary>
-        /// Executes the scalar command text.
+        /// Executes the scalar stored procedure.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="database">The database.</param>
-        /// <param name="commandText">The command text.</param>
+        /// <param name="procedure">The procedure.</param>
         /// <returns></returns>
         public static T ExecuteScalarStoredProcedure<T>(
             this Database database,
